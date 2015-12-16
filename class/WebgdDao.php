@@ -38,10 +38,10 @@ class WebgdDao {
 					{$this->CFG->prefix}block_webgd_pagina_order po on
 					p.id = po.page
 				where
-				   po.parent = $idParent and p.habilitado = $habilitado and p.visivel = $visivel
+				   po.parent = ? and p.habilitado = ? and p.visivel = ?
 				order by
  					 po.id, po.parent";
-        return $this->DB->get_records_sql($sql);
+        return $this->DB->get_records_sql($sql,array($idParent,$habilitado,$visivel));
     }
 
     public function findChildren($idParent) {
@@ -53,10 +53,10 @@ class WebgdDao {
 					{$this->CFG->prefix}block_webgd_pagina_order po on
 					p.id = po.page
 				where
-				   po.parent = $idParent
+				   po.parent = ?
 				order by
 				  po.parent";
-        return $this->DB->get_records_sql($sql);
+        return $this->DB->get_records_sql($sql,array($idParent));
     }
 
     public function getListFatherByHabilityAndVisible($visivel = 1, $habilitado = 1) {
@@ -68,10 +68,10 @@ class WebgdDao {
 					{$this->CFG->prefix}block_webgd_pagina_order po on
 					p.id = po.page
 				where
-   					(po.parent = 0 or po.parent is null) and p.habilitado = '$habilitado' and p.visivel = '$visivel'
+   					(po.parent = 0 or po.parent is null) and p.habilitado = '?' and p.visivel = '?'
 				order by
  					 po.order, po.id";
-        return $this->DB->get_records_sql($sql);
+        return $this->DB->get_records_sql($sql,array($habilitado,$visivel));
     }
 
     public function getListFather() {
