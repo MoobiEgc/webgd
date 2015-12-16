@@ -24,7 +24,7 @@ require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot.'/blocks/webgd/commons/TableResouces.php');
 require_once($CFG->dirroot.'/blocks/webgd/class/WebgdDao.php');
-
+require_login(1);
 if (!has_capability('block/webgd:gerenciarOrdem', context_system::instance())) {
 	redirect($CFG->wwwroot, get_string('erropermissao', 'block_webgd'), 10);
 }

@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__) . '/../../../config.php');
 require_once($CFG->dirroot.'/blocks/webgd/commons/TableResouces.php');
-
+require_login(1);
 if (!has_capability('block/webgd:deletarPagina', context_system::instance())) {
 	redirect($CFG->wwwroot, get_string('erropermissao', 'block_webgd'), 10);
 }

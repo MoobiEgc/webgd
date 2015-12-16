@@ -25,7 +25,7 @@ require_once(dirname(__FILE__) . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot.'/blocks/webgd/form/CadastrarPaginaForm.php');
 require_once($CFG->dirroot.'/blocks/webgd/commons/TableResouces.php');
-
+require_login(1);
 $PAGE->set_url('/course/index.php');
 $PAGE->set_context(context_system::instance());
 

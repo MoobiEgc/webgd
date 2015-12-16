@@ -25,7 +25,7 @@ require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot.'/blocks/webgd/class/WebgdDao.php');
 global $CFG;
-
+require_login(1);
 $idPage = optional_param('page', '', PARAM_INTEGER);
 
 $PAGE->set_url('/course/index.php');
