@@ -68,7 +68,7 @@ class WebgdDao {
 					{$this->CFG->prefix}block_webgd_pagina_order po on
 					p.id = po.page
 				where
-   					(po.parent = 0 or po.parent is null) and p.habilitado = '?' and p.visivel = '?'
+   					(po.parent = 0 or po.parent is null) and p.habilitado = ? and p.visivel = ?
 				order by
  					 po.order, po.id";
         return $this->DB->get_records_sql($sql,array($habilitado,$visivel));
