@@ -12,7 +12,7 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
 echo $OUTPUT->header('');
-echo $OUTPUT->heading('Gerenciamento de pagina');
+echo $OUTPUT->heading(get_string('cabecalhoGerenciamento','block_webgd'));
 
 
 $listaPaginas = $DB->get_records(TableResoucer::$TABLE_PAGINA);

@@ -368,11 +368,11 @@ foreach ($listaPaginas as $pagina){
 ?>
 </ol>
 <form action=" " id="form" method="post">
-	<input type="submit" value="salvar">
+	<input type="submit" value="Salvar">
 </form>
 </section>
 <?php
-	echo $OUTPUT->single_button($CFG->wwwroot.'/blocks/webgd/index.php', get_string('cacelar','block_webgd'));   
+	echo $OUTPUT->single_button($CFG->wwwroot.'/blocks/webgd/index.php', get_string('cancelar','block_webgd'));   
 }
 echo $OUTPUT->footer();
 ?>

@@ -30,47 +30,47 @@ $string['webgd:editarPagina'] = 'Permissão para editar uma pagina';
 $string['webgd:deletarPagina'] = 'Permissão para deletar uma pagina';
 $string['webgd:gerenciarOrdem'] = 'Permissão para acessar o gerenciamento de ordem dos menus';
 
-$string['pluginname'] = 'Navegação WebGD';
-$string['administracao'] = 'Administração';
+$string['pluginname'] = 'WebGD Navigation';
+$string['administracao'] = 'Administration';
 
 /*
  * HEADERS
  */
-$string['cabecalhoCadastrarPagina'] = 'Cadastrar Pagina';
-$string['cabecalhoEditarPagina'] = 'Editar Pagina';
-$string['cabecalhoGerenciamentoOrdemMenus'] = 'Gerenciamento de ordem dos menus';
-
+$string['cabecalhoCadastrarPagina'] = 'Register page';
+$string['cabecalhoEditarPagina'] = 'Edit page';
+$string['cabecalhoGerenciamentoOrdemMenus'] = 'Menu order management';
+$string['cabecalhoGerenciamento'] = 'Page management';
 /*
  * LABEL 
  */
-$string['cadastrar'] = 'Cadastrar';
-$string['gerenciarOrdem'] = 'Gerenciar Ordem';
-$string['cancelar'] = 'Cancelar';
+$string['cadastrar'] = 'Register';
+$string['gerenciarOrdem'] = 'Change order';
+$string['cancelar'] = 'Cancel';
 /*
  * LABEL FORM
  */
-$string['labelNome'] = 'Nome';
-$string['labelTitulo'] = 'Titulo';
-$string['labelPaginaVisivelLogado'] = 'Pagina visivel quando logado';
-$string['labelPaginaHabilitada'] = 'Pagina habilitada';
-$string['labelSim'] = 'Sim';
-$string['labelNão'] = 'Não';
+$string['labelNome'] = 'Name';
+$string['labelTitulo'] = 'Title';
+$string['labelPaginaVisivelLogado'] = 'Page visible when logged';
+$string['labelPaginaHabilitada'] = 'Page enabled';
+$string['labelSim'] = 'Yes';
+$string['labelNão'] = 'No';
 
 /*
  * MENSAGEM VALIDACAO FORM
  */
-$string['labelValidacaoNome'] = 'Nome em branco';
-$string['labelValidacaoTitulo'] = 'Titulo em branco';
-$string['labelValidacaoArquivo'] = 'Selecione o arquivo';
-$string['labelValidacaoConteudoPagina'] = 'Conteudo da pagina em branco';
-$string['labelValidacaoSelecioneUmaOpcao'] = 'Selecione uma opção';
+$string['labelValidacaoNome'] = 'Blank name';
+$string['labelValidacaoTitulo'] = 'Blank title';
+$string['labelValidacaoArquivo'] = 'Select the file';
+$string['labelValidacaoConteudoPagina'] = 'Blank page content';
+$string['labelValidacaoSelecioneUmaOpcao'] = 'Select an option';
 
 
 /*
  * MENSAGENS
  */
-$string['msgOrdemSalvaSucesso'] = 'Pagina editada com sucesso';
-$string['msgPaginaEditadaSucesso'] = 'Pagina editada com sucesso';
-$string['msgPaginaCadastradaSucesso'] = 'Pagina Cadastrado com sucesso';
-$string['msgErro'] = 'Ocorreu um erro';
-$string['erropermissao'] = 'Você não possui permissão para acessar essa página';
+$string['msgOrdemSalvaSucesso'] = 'Page saved successfully';
+$string['msgPaginaEditadaSucesso'] = 'Page edited successfully';
+$string['msgPaginaCadastradaSucesso'] = 'Page registered successfully';
+$string['msgErro'] = 'There was an error';
+$string['erropermissao'] = 'You have no permission to access this page';

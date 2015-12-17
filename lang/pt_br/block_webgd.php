@@ -39,7 +39,7 @@ $string['administracao'] = 'Administração';
 $string['cabecalhoCadastrarPagina'] = 'Cadastrar Pagina';
 $string['cabecalhoEditarPagina'] = 'Editar Pagina';
 $string['cabecalhoGerenciamentoOrdemMenus'] = 'Gerenciamento de ordem dos menus';
-
+$string['cabecalhoGerenciamento'] = 'Gerenciamento de página';
 /*
  * LABEL 
  */
