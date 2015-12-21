@@ -103,7 +103,7 @@ if($page && ($page->habilitado != "false")){
 
 	$videoLibras = '#';
 	$videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/retas.mp4';
-	$imgLibras = $CFG->wwwroot . '/theme/clean/pix/icons/mao-libras.png';
+	$imgLibras = $CFG->wwwroot . '/theme/moobi/pix/icons/mao-libras.png';
 
 	echo "<div><a class='hand' id='mainHand' href='" . $videoLibras . "'><img src='" . $imgLibras . "'></img></a></div>";
 

@@ -57,7 +57,7 @@ $(function () {
         play();
 
         $('#videodiv').show();
-        mediaPlayer.currentTime = 0;
+//        mediaPlayer.currentTime = 0;
 
         $('#videodiv').css("position", "absolute");
 

@@ -52,7 +52,7 @@ class block_webgd extends block_list {
         $this->content->items = array();
         $this->content->icons = array();
 
-        $aumentar = $CFG->wwwroot . '/theme/clean/pix/icons/aumentar.png';
+        $aumentar = $CFG->wwwroot . '/theme/moobi/pix/icons/aumentar.png';
 
         if (has_capability('block/webgd:administracao', context_system::instance())) {
             $this->content->items[] = "<div class='linha_webgd' style='width:330px;'>
@@ -78,7 +78,7 @@ class block_webgd extends block_list {
         $item = "";
         foreach ($listaPaginas as $page) {
             //setando valor estatico para os icones
-            $page->url_icon = $CFG->wwwroot . "/theme/clean/pix/icons/" . $page->nome . ".png";
+            $page->url_icon = $CFG->wwwroot . "/theme/moobi/pix/icons/" . $page->nome . ".png";
 
             if ($listChilden = $webgdDao->findChildrenByHabilityAndVisible($page->id, $visivel)) {
                 $this->content->items[] = $this->gerateLink($page->id, $page->nome, $page->link, $page->link_url, $page->url_icon);
@@ -165,8 +165,8 @@ class block_webgd extends block_list {
     private function gerateLink($id, $nome, $link, $urlLink, $urlIcon) {
         global $CFG;
         $target = '_self';
-        $imgLibras = $CFG->wwwroot . '/theme/clean/pix/icons/mao-libras.png';
-        $imgSignwrigth = $CFG->wwwroot . '/theme/clean/pix/icons/mao-signwrigth.png';
+        $imgLibras = $CFG->wwwroot . '/theme/moobi/pix/icons/mao-libras.png';
+        $imgSignwrigth = $CFG->wwwroot . '/theme/moobi/pix/icons/mao-signwrigth.png';
 
         $redhand = $CFG->wwwroot . "/blocks/webgd/redhand/" . $nome . ".png";
 
@@ -179,7 +179,7 @@ class block_webgd extends block_list {
         }
 
         if (empty($urlIcon)) {
-            $urlIcon = $CFG->wwwroot . '/theme/clean/pix/icons/aumentar.png';
+            $urlIcon = $CFG->wwwroot . '/theme/moobi/pix/icons/aumentar.png';
         }
         if ($nome == 'Inicio') {
             $videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/boasvindas.mp4';
