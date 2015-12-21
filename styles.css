@@ -66,6 +66,6 @@
 .jsenabled.dir-rtl .block_webgd .block_tree .collapsed .tree_item.branch {background-image: url([[pix:t/collapsed_rtl]]);}
 
 .span8.pull-right{
-        padding-right: 5%;
-        padding-left: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
 }

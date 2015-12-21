@@ -1,4 +1,5 @@
 <?php
+
 require_once ($CFG->dirroot . '/blocks/webgd/class/WebgdDao.php');
 
 class block_webgd extends block_list {
@@ -34,7 +35,7 @@ class block_webgd extends block_list {
             .block_webgd li{
                 border-bottom: 2px solid #CCCBCB !important;
             }
-            
+
             #videodiv {
                 z-index:1;
             }
@@ -44,6 +45,7 @@ class block_webgd extends block_list {
 
 
         <?php
+
         if ($this->content !== null) {
             return $this->content;
         }
@@ -57,12 +59,12 @@ class block_webgd extends block_list {
         if (has_capability('block/webgd:administracao', context_system::instance())) {
             $this->content->items[] = "<div class='linha_webgd' style='width:330px;'>
                                             <div style='float:left; width:280px;'>
-						<img style='width:auto;height:auto;vertical-align: middle;' src='" . $aumentar . "'>
-						<span class='titulo_menu_webgd'>
+                        <img style='width:auto;height:auto;vertical-align: middle;' src='" . $aumentar . "'>
+                        <span class='titulo_menu_webgd'>
                                                     <a  title='" . get_string('administracao', 'block_webgd') . "' href='" . $CFG->wwwroot . "/blocks/webgd/index.php'>" . get_string('administracao', 'block_webgd') . "  </a>
-						</span>
+                        </span>
                                             </div>
-					</div>";
+                    </div>";
         }
 
 

@@ -31,42 +31,42 @@ class WebgdDao {
 
     public function findChildrenByHabilityAndVisible($idParent, $visivel = 1, $habilitado = 1) {
         $sql = "SELECT p.id, p.nome, po.parent, p.link, p.link_url, p.url_icon
-		  FROM {block_webgd_pagina} p
-	     LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
-		 WHERE po.parent = ? 
+                  FROM {block_webgd_pagina} p
+             LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
+                 WHERE po.parent = ? 
                        AND p.habilitado = ? 
                        AND p.visivel = ?
-	      ORDER BY po.id, po.parent";
-        return $this->DB->get_records_sql($sql,array($idParent,$habilitado,$visivel));
+              ORDER BY po.id, po.parent";
+        return $this->DB->get_records_sql($sql, array($idParent, $habilitado, $visivel));
     }
 
     public function findChildren($idParent) {
         $sql = "SELECT p.id, p.nome, po.parent
-		  FROM {block_webgd_pagina} p
-	     LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
-		 WHERE po.parent = ?
-	      ORDER BY po.parent";
-        return $this->DB->get_records_sql($sql,array($idParent));
+                  FROM {block_webgd_pagina} p
+             LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
+                 WHERE po.parent = ?
+              ORDER BY po.parent";
+        return $this->DB->get_records_sql($sql, array($idParent));
     }
 
     public function getListFatherByHabilityAndVisible($visivel = 1, $habilitado = 1) {
         $sql = "SELECT p.id, p.nome, po.parent, p.link, p.link_url,  p.url_icon
-		  FROM {block_webgd_pagina} p
-	     LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
-		 WHERE (po.parent = 0 OR po.parent IS NULL) 
+                  FROM {block_webgd_pagina} p
+             LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
+                 WHERE (po.parent = 0 OR po.parent IS NULL) 
                        AND p.habilitado = ? 
                        AND p.visivel = ?
-	      ORDER BY po.order, po.id";
-        return $this->DB->get_records_sql($sql,array($habilitado,$visivel));
+              ORDER BY po.order, po.id";
+        return $this->DB->get_records_sql($sql, array($habilitado, $visivel));
     }
 
     public function getListFather() {
         $sql = "SELECT p.id, p.nome, po.parent
-		  FROM {block_webgd_pagina} p
-	     LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
-		 WHERE po.parent = 0 
+                  FROM {block_webgd_pagina} p
+             LEFT JOIN {block_webgd_pagina_order} po ON p.id = po.page
+                 WHERE po.parent = 0 
                        OR po.parent IS NULL
-	      ORDER BY po.id, po.parent";
+              ORDER BY po.id, po.parent";
         return $this->DB->get_records_sql($sql);
     }
 

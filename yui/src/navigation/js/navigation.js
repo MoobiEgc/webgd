@@ -37,7 +37,7 @@ M.block_webgd.courselimit = 20;
  * @static
  * @param {Object} properties
  */
-M.block_webgd.init_add_tree = function(properties) {
+M.block_webgd.init_add_tree = function (properties) {
     if (properties.courselimit) {
         this.courselimit = properties.courselimit;
     }
@@ -62,7 +62,6 @@ Y.Event.define("actionkey", {
     // Firefox prevents page scroll via preventDefault() on either
     // keydown or keypress.
     _event: (Y.UA.webkit || Y.UA.ie) ? 'keydown' : 'keypress',
-
     /**
      * The keys to trigger on.
      * @method _keys
@@ -74,7 +73,6 @@ Y.Event.define("actionkey", {
         '32': 'toggle',
         '13': 'enter'
     },
-
     /**
      * Handles key events
      * @method _keyHandler
@@ -85,7 +83,7 @@ Y.Event.define("actionkey", {
     _keyHandler: function (e, notifier, args) {
         var actObj;
         if (!args.actions) {
-            actObj = {collapse:true, expand:true, toggle:true, enter:true};
+            actObj = {collapse: true, expand: true, toggle: true, enter: true};
         } else {
             actObj = args.actions;
         }
@@ -94,7 +92,6 @@ Y.Event.define("actionkey", {
             notifier.fire(e);
         }
     },
-
     /**
      * Subscribes to events.
      * @method on
@@ -106,12 +103,11 @@ Y.Event.define("actionkey", {
         // subscribe to _event and ask keyHandler to handle with given args[0] (the desired actions).
         if (sub.args === null) {
             //no actions given
-            sub._detacher = node.on(this._event, this._keyHandler,this, notifier, {actions:false});
+            sub._detacher = node.on(this._event, this._keyHandler, this, notifier, {actions: false});
         } else {
-            sub._detacher = node.on(this._event, this._keyHandler,this, notifier, sub.args[0]);
+            sub._detacher = node.on(this._event, this._keyHandler, this, notifier, sub.args[0]);
         }
     },
-
     /**
      * Detaches an event listener
      * @method detach
@@ -120,7 +116,6 @@ Y.Event.define("actionkey", {
         //detach our _detacher handle of the subscription made in on()
         sub._detacher.detach();
     },
-
     /**
      * Creates a delegated event listener.
      * @method delegate
@@ -133,12 +128,11 @@ Y.Event.define("actionkey", {
         // subscribe to _event and ask keyHandler to handle with given args[0] (the desired actions).
         if (sub.args === null) {
             //no actions given
-            sub._delegateDetacher = node.delegate(this._event, this._keyHandler,filter, this, notifier, {actions:false});
+            sub._delegateDetacher = node.delegate(this._event, this._keyHandler, filter, this, notifier, {actions: false});
         } else {
-            sub._delegateDetacher = node.delegate(this._event, this._keyHandler,filter, this, notifier, sub.args[0]);
+            sub._delegateDetacher = node.delegate(this._event, this._keyHandler, filter, this, notifier, sub.args[0]);
         }
     },
-
     /**
      * Detaches a delegated event listener.
      * @method detachDelegate
@@ -153,39 +147,39 @@ Y.Event.define("actionkey", {
 });
 
 var EXPANSIONLIMIT_EVERYTHING = 0,
-    EXPANSIONLIMIT_COURSE     = 20,
-    EXPANSIONLIMIT_SECTION    = 30,
-    EXPANSIONLIMIT_ACTIVITY   = 40;
+        EXPANSIONLIMIT_COURSE = 20,
+        EXPANSIONLIMIT_SECTION = 30,
+        EXPANSIONLIMIT_ACTIVITY = 40;
 
 // Mappings for the different types of nodes coming from the navigation.
 // Copied from lib/navigationlib.php navigation_node constants.
 var NODETYPE = {
     // @type int Root node = 0
-    ROOTNODE : 0,
+    ROOTNODE: 0,
     // @type int System context = 1
-    SYSTEM : 1,
+    SYSTEM: 1,
     // @type int Course category = 10
-    CATEGORY : 10,
+    CATEGORY: 10,
     // @type int MYCATEGORY = 11
-    MYCATEGORY : 11,
+    MYCATEGORY: 11,
     // @type int Course = 20
-    COURSE : 20,
+    COURSE: 20,
     // @type int Course section = 30
-    SECTION : 30,
+    SECTION: 30,
     // @type int Activity (course module) = 40
-    ACTIVITY : 40,
+    ACTIVITY: 40,
     // @type int Resource (course module = 50
-    RESOURCE : 50,
+    RESOURCE: 50,
     // @type int Custom node (could be anything) = 60
-    CUSTOM : 60,
+    CUSTOM: 60,
     // @type int Setting = 70
-    SETTING : 70,
+    SETTING: 70,
     // @type int site administration = 71
-    SITEADMIN : 71,
+    SITEADMIN: 71,
     // @type int User context = 80
-    USER : 80,
+    USER: 80,
     // @type int Container = 90
-    CONTAINER : 90
+    CONTAINER: 90
 };
 
 /**
@@ -199,7 +193,7 @@ var NODETYPE = {
  * @constructor
  * @extends Y.Base
  */
-var TREE = function() {
+var TREE = function () {
     TREE.superclass.constructor.apply(this, arguments);
 };
 TREE.prototype = {
@@ -209,25 +203,25 @@ TREE.prototype = {
      * @type Int
      * @protected
      */
-    id : null,
+    id: null,
     /**
      * An array of initialised branches.
      * @property branches
      * @type Array
      * @protected
      */
-    branches : [],
+    branches: [],
     /**
      * Initialise the tree object when its first created.
      * @method initializer
      * @param {Object} config
      */
-    initializer : function(config) {
+    initializer: function (config) {
         Y.log('Initialising navigation block webgd', 'note', 'moodle-block_webgd');
 
         this.id = parseInt(config.id, 10);
 
-        var node = Y.one('#inst'+config.id);
+        var node = Y.one('#inst' + config.id);
 
         // Can't find the block instance within the page
         if (node === null) {
@@ -242,18 +236,18 @@ TREE.prototype = {
         var expansions = [];
         if (config.expansions) {
             expansions = config.expansions;
-        } else if (window['navtreeexpansions'+config.id]) {
-            expansions = window['navtreeexpansions'+config.id];
+        } else if (window['navtreeexpansions' + config.id]) {
+            expansions = window['navtreeexpansions' + config.id];
         }
         // Establish each expandable branch as a tree branch.
         for (var i in expansions) {
             var branch = new BRANCH({
-                tree:this,
-                branchobj:expansions[i],
-                overrides : {
-                    expandable : true,
-                    children : [],
-                    haschildren : true
+                tree: this,
+                branchobj: expansions[i],
+                overrides: {
+                    expandable: true,
+                    children: [],
+                    haschildren: true
                 }
             }).wire();
             M.block_webgd.expandablebranchcount++;
@@ -264,10 +258,10 @@ TREE.prototype = {
             var siteadminbranch = new BRANCH({
                 tree: this,
                 branchobj: window.siteadminexpansion,
-                overrides : {
-                    expandable : true,
-                    children : [],
-                    haschildren : true
+                overrides: {
+                    expandable: true,
+                    children: [],
+                    haschildren: true
                 }
             }).wire();
             M.block_webgd.expandablebranchcount++;
@@ -275,7 +269,7 @@ TREE.prototype = {
             // Remove link on site admin with JS to keep old UI.
             var siteadminlinknode = siteadminbranch.node.get('childNodes').item(0);
             if (siteadminlinknode) {
-                var siteadminnode = Y.Node.create('<span tabindex="0">'+siteadminlinknode.get('innerHTML')+'</span>');
+                var siteadminnode = Y.Node.create('<span tabindex="0">' + siteadminlinknode.get('innerHTML') + '</span>');
                 siteadminbranch.node.replaceChild(siteadminnode, siteadminlinknode);
             }
         }
@@ -290,7 +284,7 @@ TREE.prototype = {
      * @method fire_branch_action
      * @param {EventFacade} event
      */
-    fire_branch_action : function(event) {
+    fire_branch_action: function (event) {
         var id = event.currentTarget.getAttribute('id');
         var branch = this.branches[id];
         branch.ajaxLoad(event);
@@ -302,7 +296,7 @@ TREE.prototype = {
      * @param {EventFacade} e
      * @return Boolean
      */
-    toggleExpansion : function(e) {
+    toggleExpansion: function (e) {
         // First check if they managed to click on the li iteslf, then find the closest
         // LI ancestor and use that
 
@@ -346,7 +340,7 @@ TREE.prototype = {
 
         // If the accordian feature has been enabled collapse all siblings.
         if (this.get('accordian')) {
-            target.siblings('li').each(function(){
+            target.siblings('li').each(function () {
                 if (this.get('id') !== target.get('id') && !this.hasClass('collapsed')) {
                     this.addClass('collapsed');
                     this.set('aria-expanded', false);
@@ -365,39 +359,39 @@ TREE.prototype = {
 };
 // The tree extends the YUI base foundation.
 Y.extend(TREE, Y.Base, TREE.prototype, {
-    NAME : 'navigation-tree',
-    ATTRS : {
+    NAME: 'navigation-tree',
+    ATTRS: {
         /**
          * True if the block can dock.
          * @attribute candock
          * @type Boolean
          */
-        candock : {
-            validator : Y.Lang.isBool,
-            value : false
+        candock: {
+            validator: Y.Lang.isBool,
+            value: false
         },
         /**
          * If set to true nodes will be opened/closed in an accordian fashion.
          * @attribute accordian
          * @type Boolean
          */
-        accordian : {
-            validator : Y.Lang.isBool,
-            value : false
+        accordian: {
+            validator: Y.Lang.isBool,
+            value: false
         },
         /**
          * The nodes that get shown.
          * @attribute expansionlimit
          * @type Integer
          */
-        expansionlimit : {
-            value : 0,
-            setter : function(val) {
+        expansionlimit: {
+            value: 0,
+            setter: function (val) {
                 val = parseInt(val, 10);
                 if (val !== EXPANSIONLIMIT_EVERYTHING &&
-                    val !== EXPANSIONLIMIT_COURSE &&
-                    val !== EXPANSIONLIMIT_SECTION &&
-                    val !== EXPANSIONLIMIT_ACTIVITY) {
+                        val !== EXPANSIONLIMIT_COURSE &&
+                        val !== EXPANSIONLIMIT_SECTION &&
+                        val !== EXPANSIONLIMIT_ACTIVITY) {
                     val = EXPANSIONLIMIT_EVERYTHING;
                 }
                 return val;
@@ -417,7 +411,7 @@ Y.extend(TREE, Y.Base, TREE.prototype, {
  * @constructor
  * @extends Y.Base
  */
-BRANCH = function() {
+BRANCH = function () {
     BRANCH.superclass.constructor.apply(this, arguments);
 };
 BRANCH.prototype = {
@@ -427,15 +421,15 @@ BRANCH.prototype = {
      * @type Node
      * @protected
      */
-    node : null,
+    node: null,
     /**
      * Initialises the branch when it is first created.
      * @method initializer
      * @param {Object} config
      */
-    initializer : function(config) {
+    initializer: function (config) {
         var i,
-            children;
+                children;
         if (config.branchobj !== null) {
             // Construct from the provided xml
             for (i in config.branchobj) {
@@ -451,10 +445,10 @@ BRANCH.prototype = {
             }
         }
         // Get the node for this branch
-        this.node = Y.one('#'+this.get('id'));
+        this.node = Y.one('#' + this.get('id'));
         var expansionlimit = this.get('tree').get('expansionlimit');
         var type = this.get('type');
-        if (expansionlimit !== EXPANSIONLIMIT_EVERYTHING &&  type >= expansionlimit && type <= EXPANSIONLIMIT_ACTIVITY) {
+        if (expansionlimit !== EXPANSIONLIMIT_EVERYTHING && type >= expansionlimit && type <= EXPANSIONLIMIT_ACTIVITY) {
             this.set('expandable', false);
             this.set('haschildren', false);
         }
@@ -470,12 +464,12 @@ BRANCH.prototype = {
      * @param {Node} element
      * @return Branch
      */
-    draw : function(element) {
+    draw: function (element) {
 
         var isbranch = (this.get('expandable') || this.get('haschildren'));
         var branchli = Y.Node.create('<li></li>');
         var link = this.get('link');
-		alert(this.get('id'));
+        alert(this.get('id'));
         var branchp = Y.Node.create('<p class="tree_item"></p>').setAttribute('id', this.get('id'));
         if (!link) {
             //add tab focus if not link (so still one focus per menu node).
@@ -519,7 +513,7 @@ BRANCH.prototype = {
             }
             branchp.appendChild(branchspan);
         } else {
-            var branchlink = Y.Node.create('<a title="'+this.get('title')+'" href="'+link+'"></a>');
+            var branchlink = Y.Node.create('<a title="' + this.get('title') + '" href="' + link + '"></a>');
             if (branchicon) {
                 branchlink.appendChild(branchicon);
             }
@@ -542,8 +536,8 @@ BRANCH.prototype = {
      * @method wire
      * @return {BRANCH} This function is chainable, it always returns itself.
      */
-    wire : function() {
-        this.node = this.node || Y.one('#'+this.get('id'));
+    wire: function () {
+        this.node = this.node || Y.one('#' + this.get('id'));
         if (!this.node) {
             return this;
         }
@@ -558,7 +552,7 @@ BRANCH.prototype = {
      * @method getChildrenUL
      * @return Node
      */
-    getChildrenUL : function() {
+    getChildrenUL: function () {
         var ul = this.node.next('ul');
         if (!ul) {
             ul = Y.Node.create('<ul></ul>');
@@ -576,7 +570,7 @@ BRANCH.prototype = {
      * @param {EventFacade} e
      * @return Bool
      */
-    ajaxLoad : function(e) {
+    ajaxLoad: function (e) {
         if (e.type === 'actionkey' && e.action !== 'enter') {
             e.halt();
         } else {
@@ -598,15 +592,15 @@ BRANCH.prototype = {
             // We've already loaded this stuff.
             return true;
         }
-        Y.log('Loading navigation branch via AJAX: '+this.get('key'), 'note', 'moodle-block_webgd');
+        Y.log('Loading navigation branch via AJAX: ' + this.get('key'), 'note', 'moodle-block_webgd');
         this.node.addClass('loadingbranch');
 
         var params = {
-            elementid : this.get('id'),
-            id : this.get('key'),
-            type : this.get('type'),
-            sesskey : M.cfg.sesskey,
-            instance : this.get('tree').get('instance')
+            elementid: this.get('id'),
+            id: this.get('key'),
+            type: this.get('type'),
+            sesskey: M.cfg.sesskey,
+            instance: this.get('tree').get('instance')
         };
 
         var ajaxfile = '/lib/ajax/getnavbranch.php';
@@ -616,12 +610,12 @@ BRANCH.prototype = {
         }
 
         Y.io(M.cfg.wwwroot + ajaxfile, {
-            method:'POST',
-            data:  build_querystring(params),
+            method: 'POST',
+            data: build_querystring(params),
             on: {
                 complete: this.ajaxProcessResponse
             },
-            context:this
+            context: this
         });
         return true;
     },
@@ -634,7 +628,7 @@ BRANCH.prototype = {
      * @param {Object} outcome
      * @return Boolean
      */
-    ajaxProcessResponse : function(tid, outcome) {
+    ajaxProcessResponse: function (tid, outcome) {
         this.node.removeClass('loadingbranch');
         this.node.setAttribute('data-loaded', '1');
         try {
@@ -642,7 +636,7 @@ BRANCH.prototype = {
             if (object.children && object.children.length > 0) {
                 var coursecount = 0;
                 for (var i in object.children) {
-                    if (typeof(object.children[i])==='object') {
+                    if (typeof (object.children[i]) === 'object') {
                         if (object.children[i].type === NODETYPE.COURSE) {
                             coursecount++;
                         }
@@ -650,7 +644,7 @@ BRANCH.prototype = {
                     }
                 }
                 if ((this.get('type') === NODETYPE.CATEGORY || this.get('type') === NODETYPE.ROOTNODE || this.get('type') === NODETYPE.MYCATEGORY)
-                    && coursecount >= M.block_webgd.courselimit) {
+                        && coursecount >= M.block_webgd.courselimit) {
                     this.addViewAllCoursesChild(this);
                 }
                 Y.log('AJAX loading complete.', 'note', 'moodle-block_webgd');
@@ -678,9 +672,9 @@ BRANCH.prototype = {
      * @param {Object} branchobj
      * @return Boolean
      */
-    addChild : function(branchobj) {
+    addChild: function (branchobj) {
         // Make the new branch into an object
-        var branch = new BRANCH({tree:this.get('tree'), branchobj:branchobj});
+        var branch = new BRANCH({tree: this.get('tree'), branchobj: branchobj});
         if (branch.draw(this.getChildrenUL())) {
             this.get('tree').branches[branch.get('id')] = branch;
             branch.wire();
@@ -690,25 +684,24 @@ BRANCH.prototype = {
                 if (children[i].type === NODETYPE.COURSE) {
                     count++;
                 }
-                if (typeof(children[i]) === 'object') {
+                if (typeof (children[i]) === 'object') {
                     branch.addChild(children[i]);
                 }
             }
             if ((branch.get('type') === NODETYPE.CATEGORY || branch.get('type') === NODETYPE.MYCATEGORY)
-                && count >= M.block_webgd.courselimit) {
+                    && count >= M.block_webgd.courselimit) {
                 this.addViewAllCoursesChild(branch);
             }
         }
         return true;
     },
-
     /**
      * Add a link to view all courses in a category
      *
      * @method addViewAllCoursesChild
      * @param {BRANCH} branch
      */
-    addViewAllCoursesChild: function(branch) {
+    addViewAllCoursesChild: function (branch) {
         var url = null;
         if (branch.get('type') === NODETYPE.ROOTNODE) {
             if (branch.get('key') === 'mycourses') {
@@ -717,20 +710,20 @@ BRANCH.prototype = {
                 url = M.cfg.wwwroot + '/course/index.php';
             }
         } else {
-            url = M.cfg.wwwroot+'/course/index.php?categoryid=' + branch.get('key');
+            url = M.cfg.wwwroot + '/course/index.php?categoryid=' + branch.get('key');
         }
         branch.addChild({
-            name : M.str.moodle.viewallcourses,
-            title : M.str.moodle.viewallcourses,
-            link : url,
-            haschildren : false,
-            icon : {'pix':"i/navigationitem",'component':'moodle'}
+            name: M.str.moodle.viewallcourses,
+            title: M.str.moodle.viewallcourses,
+            link: url,
+            haschildren: false,
+            icon: {'pix': "i/navigationitem", 'component': 'moodle'}
         });
     }
 };
 Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
-    NAME : 'navigation-branch',
-    ATTRS : {
+    NAME: 'navigation-branch',
+    ATTRS: {
         /**
          * The Tree this branch belongs to.
          * @attribute tree
@@ -738,19 +731,19 @@ Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
          * @required
          * @writeOnce
          */
-        tree : {
-            writeOnce : 'initOnly',
-            validator : Y.Lang.isObject
+        tree: {
+            writeOnce: 'initOnly',
+            validator: Y.Lang.isObject
         },
         /**
          * The name of this branch.
          * @attribute name
          * @type String
          */
-        name : {
-            value : '',
-            validator : Y.Lang.isString,
-            setter : function(val) {
+        name: {
+            value: '',
+            validator: Y.Lang.isString,
+            setter: function (val) {
                 return val.replace(/\n/g, '<br />');
             }
         },
@@ -759,9 +752,9 @@ Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
          * @attribute title
          * @type String
          */
-        title : {
-            value : '',
-            validator : Y.Lang.isString
+        title: {
+            value: '',
+            validator: Y.Lang.isString
         },
         /**
          * The ID of this branch.
@@ -769,12 +762,12 @@ Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
          * @attribute id
          * @type String
          */
-        id : {
-            value : '',
-            validator : Y.Lang.isString,
-            getter : function(val) {
+        id: {
+            value: '',
+            validator: Y.Lang.isString,
+            getter: function (val) {
                 if (val === '') {
-                    val = 'expandable_branch_'+M.block_webgd.expandablebranchcount;
+                    val = 'expandable_branch_' + M.block_webgd.expandablebranchcount;
                     M.block_webgd.expandablebranchcount++;
                 }
                 return val;
@@ -785,17 +778,17 @@ Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
          * @attribute key
          * @type String
          */
-        key : {
-            value : null
+        key: {
+            value: null
         },
         /**
          * The type of this branch.
          * @attribute type
          * @type Int
          */
-        type : {
-            value : null,
-            setter : function(value) {
+        type: {
+            value: null,
+            setter: function (value) {
                 return parseInt(value, 10);
             }
         },
@@ -804,53 +797,53 @@ Y.extend(BRANCH, Y.Base, BRANCH.prototype, {
          * @attribute link
          * @type String
          */
-        link : {
-            value : false
+        link: {
+            value: false
         },
         /**
          * The Icon to add when displaying this branch.
          * @attribute icon
          * @type Object
          */
-        icon : {
-            value : false,
-            validator : Y.Lang.isObject
+        icon: {
+            value: false,
+            validator: Y.Lang.isObject
         },
         /**
          * True if this branch is expandable.
          * @attribute expandable
          * @type Boolean
          */
-        expandable : {
-            value : false,
-            validator : Y.Lang.isBool
+        expandable: {
+            value: false,
+            validator: Y.Lang.isBool
         },
         /**
          * True if this branch is hidden and should be displayed greyed out.
          * @attribute hidden
          * @type Boolean
          */
-        hidden : {
-            value : false,
-            validator : Y.Lang.isBool
+        hidden: {
+            value: false,
+            validator: Y.Lang.isBool
         },
         /**
          * True if this branch has any children.
          * @attribute haschildren
          * @type Boolean
          */
-        haschildren : {
-            value : false,
-            validator : Y.Lang.isBool
+        haschildren: {
+            value: false,
+            validator: Y.Lang.isBool
         },
         /**
          * An array of other branches that appear as children of this branch.
          * @attribute children
          * @type Array
          */
-        children : {
-            value : [],
-            validator : Y.Lang.isArray
+        children: {
+            value: [],
+            validator: Y.Lang.isArray
         }
     }
 });

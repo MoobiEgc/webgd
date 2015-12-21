@@ -21,12 +21,12 @@ $(function () {
 
     var mediaPlayer = $('#videotag').get(0);
 
-    mediaPlayer.addEventListener('ended', function(e)
+    mediaPlayer.addEventListener('ended', function (e)
     {
-      mediaPlayer.currentTime = 1;
-      mediaPlayer.pause();
-      $("#playPause").children().removeClass('fa-pause');
-      $("#playPause").children().addClass('fa-play');
+        mediaPlayer.currentTime = 1;
+        mediaPlayer.pause();
+        $("#playPause").children().removeClass('fa-pause');
+        $("#playPause").children().addClass('fa-play');
 
     }, false);
 
@@ -36,8 +36,7 @@ $(function () {
             mediaPlayer.play();
             $(this).children().removeClass('fa-play');
             $(this).children().addClass('fa-pause');
-        }
-        else
+        } else
         {
             mediaPlayer.pause();
             $(this).children().removeClass('fa-pause');
@@ -62,9 +61,9 @@ $(function () {
         $('#videodiv').css("position", "absolute");
 
         $('#videodiv').css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
-                $(window).scrollTop())-($('#videodiv').height()/2) + "px");
+                $(window).scrollTop()) - ($('#videodiv').height() / 2) + "px");
         $('#videodiv').css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-                $(window).scrollLeft())-($('#videodiv').width()/2)-50 + "px");
+                $(window).scrollLeft()) - ($('#videodiv').width() / 2) - 50 + "px");
     });
 
     $('body').on('click', '.cacooLink', function (e) {
@@ -80,17 +79,17 @@ $(function () {
         $('#cacoovideo').css("position", "absolute");
 
         $('#cacoovideo').css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
-                $(window).scrollTop())-($('#cacoovideo').height()/2) + "px");
+                $(window).scrollTop()) - ($('#cacoovideo').height() / 2) + "px");
         $('#cacoovideo').css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-                $(window).scrollLeft())-($('#cacoovideo').width()/2)-50 + "px");
+                $(window).scrollLeft()) - ($('#cacoovideo').width() / 2) - 50 + "px");
     });
 
     $('body').on('click', '.tooltip_redhand', function (e) {
 
         $('#imagediv').find('img').attr('src', $(this).attr('rel'));
         $('#imagediv').show();
-        $('#imagediv').css("top",e.pageY - 60);
-        $('#imagediv').css("left",e.pageX + 30);
+        $('#imagediv').css("top", e.pageY - 60);
+        $('#imagediv').css("left", e.pageX + 30);
     });
 
     $('#replay').click(function () {
@@ -120,8 +119,8 @@ $(function () {
 
         buffer.drawImage(video, 0, 0);
 
-        if (showOnce){
-            showOnce=false;
+        if (showOnce) {
+            showOnce = false;
         }
 
         // this can be done without alphaData, except in Firefox which doesn't like it when image is bigger than the canvas
@@ -139,7 +138,8 @@ $(function () {
     function play() {
         clearInterval(interval);
         interval = setInterval(processFrame, 40);
-    };
+    }
+    ;
 //   fim do CANVAS VIDEOS
 
 });

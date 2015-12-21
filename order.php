@@ -22,11 +22,11 @@
  */
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot.'/blocks/webgd/commons/TableResouces.php');
-require_once($CFG->dirroot.'/blocks/webgd/class/WebgdDao.php');
+require_once($CFG->dirroot . '/blocks/webgd/commons/TableResouces.php');
+require_once($CFG->dirroot . '/blocks/webgd/class/WebgdDao.php');
 require_login(1);
 if (!has_capability('block/webgd:gerenciarOrdem', context_system::instance())) {
-	redirect($CFG->wwwroot, get_string('erropermissao', 'block_webgd'), 10);
+    redirect($CFG->wwwroot, get_string('erropermissao', 'block_webgd'), 10);
 }
 
 require_login(1);
@@ -40,339 +40,341 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
 
-echo $OUTPUT->header(get_string('cabecalhoGerenciamentoOrdemMenus','block_webgd'));
-echo $OUTPUT->heading(get_string('cabecalhoGerenciamentoOrdemMenus','block_webgd'));
+echo $OUTPUT->header(get_string('cabecalhoGerenciamentoOrdemMenus', 'block_webgd'));
+echo $OUTPUT->heading(get_string('cabecalhoGerenciamentoOrdemMenus', 'block_webgd'));
 
 $webgdDao = new WebgdDao();
 
-if(isset($_POST['ativo'])){
-	
-	$orderString = explode('&',str_replace(']','',str_replace('list[', '', $_POST['ativo'])));
+if (isset($_POST['ativo'])) {
 
-	if(count($orderString) > 1){
+    $orderString = explode('&', str_replace(']', '', str_replace('list[', '', $_POST['ativo'])));
 
-		$webgdDao->deleteRecordByTablePageOrder();
+    if (count($orderString) > 1) {
 
-		$pageOrder = new stdClass();
+        $webgdDao->deleteRecordByTablePageOrder();
 
-		try{
-			$transaction = $DB->start_delegated_transaction();
+        $pageOrder = new stdClass();
 
-			foreach ($orderString as $order){
-				$value = explode('=', $order);
+        try {
+            $transaction = $DB->start_delegated_transaction();
 
-				$pageOrder->page = $value[0];
-				$pageOrder->parent = 0;
-					
-				if($value[1] != "null"){
-					$pageOrder->parent = $value[1];
-				}
-					
-				$webgdDao->insertRecordInTablePageOrder($pageOrder);
-			}
-			$transaction->allow_commit();
-			
-			redirect($CFG->wwwroot.'/blocks/webgd/order.php',  get_string('msgOrdemSalvaSucesso','block_webgd'), 10);
-		} catch(Exception $e) {
-			$transaction->rollback($e);
-			redirect($CFG->wwwroot.'/blocks/webgd/order.php',  get_string('msgErro','block_webgd'), 10);
-		}
-	}
-}else{
-	//TODO COMPONENTIZAR FELIPE 01/07/2014
-	?>
-<script>
+            foreach ($orderString as $order) {
+                $value = explode('=', $order);
 
-		(function(){
-			if (!/*@cc_on!@*/0) return;
-			var e = ("abbr article aside audio canvas command datalist details figure figcaption footer "+
-				"header hgroup mark meter nav output progress section summary time video").split(' '),
-			i=e.length;
-			while (i--) {
-			document.createElement(e[i])
-			}
-		})(document.documentElement,'className');
+                $pageOrder->page = $value[0];
+                $pageOrder->parent = 0;
 
-	</script>
+                if ($value[1] != "null") {
+                    $pageOrder->parent = $value[1];
+                }
 
+                $webgdDao->insertRecordInTablePageOrder($pageOrder);
+            }
+            $transaction->allow_commit();
 
-<script
-	src="http://mjsarfatti.com/sandbox/nestedSortable/jquery-1.7.2.min.js"></script>
-<script
-	src="http://mjsarfatti.com/sandbox/nestedSortable/jquery-ui-1.8.16.custom.min.js"></script>
-<script
-	src="http://mjsarfatti.com/sandbox/nestedSortable/jquery.ui.touch-punch.js"></script>
-<script
-	src="<?php echo $CFG->wwwroot;?>/blocks/webgd/nestedSortable.js"></script>
+            redirect($CFG->wwwroot . '/blocks/webgd/order.php', get_string('msgOrdemSalvaSucesso', 'block_webgd'), 10);
+        } catch (Exception $e) {
+            $transaction->rollback($e);
+            redirect($CFG->wwwroot . '/blocks/webgd/order.php', get_string('msgErro', 'block_webgd'), 10);
+        }
+    }
+} else {
+    //TODO COMPONENTIZAR FELIPE 01/07/2014
+    ?>
+    <script>
+
+        (function () {
+            if (!/*@cc_on!@*/0)
+                return;
+            var e = ("abbr article aside audio canvas command datalist details figure figcaption footer " +
+                    "header hgroup mark meter nav output progress section summary time video").split(' '),
+                    i = e.length;
+            while (i--) {
+                document.createElement(e[i])
+            }
+        })(document.documentElement, 'className');
+
+    </script>
 
 
-<script>
-	$(document).ready(function(){
-		$('ol.sortable').nestedSortable({
-			forcePlaceholderSize: true,
-			handle: 'div',
-			helper:	'clone',
-			items: 'li',
-			opacity: .6,
-			placeholder: 'placeholder',
-			revert: 250,
-			tabSize: 25,
-			tolerance: 'pointer',
-			toleranceElement: '> div',
-			maxLevels: 3,
+    <script
+    src="http://mjsarfatti.com/sandbox/nestedSortable/jquery-1.7.2.min.js"></script>
+    <script
+    src="http://mjsarfatti.com/sandbox/nestedSortable/jquery-ui-1.8.16.custom.min.js"></script>
+    <script
+    src="http://mjsarfatti.com/sandbox/nestedSortable/jquery.ui.touch-punch.js"></script>
+    <script
+    src="<?php echo $CFG->wwwroot; ?>/blocks/webgd/nestedSortable.js"></script>
 
-			isTree: true,
-			expandOnHover: 700,
-			startCollapsed: true
-		});
 
-		$('.disclose').on('click', function() {
-			$(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
-		})
+    <script>
+        $(document).ready(function () {
+            $('ol.sortable').nestedSortable({
+                forcePlaceholderSize: true,
+                handle: 'div',
+                helper: 'clone',
+                items: 'li',
+                opacity: .6,
+                placeholder: 'placeholder',
+                revert: 250,
+                tabSize: 25,
+                tolerance: 'pointer',
+                toleranceElement: '> div',
+                maxLevels: 3,
+                isTree: true,
+                expandOnHover: 700,
+                startCollapsed: true
+            });
 
-		$('#serialize').click(function(){
-			serialized = $('ol.sortable').nestedSortable('serialize');
-			$('#serializeOutput').text(serialized+'\n\n');
-		})
+            $('.disclose').on('click', function () {
+                $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
+            })
 
-		$('#toHierarchy').click(function(e){
-			hiered = $('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0});
-			hiered = dump(hiered);
-			(typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
-			$('#toHierarchyOutput')[0].textContent = hiered : $('#toHierarchyOutput')[0].innerText = hiered;
-		})
+            $('#serialize').click(function () {
+                serialized = $('ol.sortable').nestedSortable('serialize');
+                $('#serializeOutput').text(serialized + '\n\n');
+            })
 
-		$('#toArray').click(function(e){
-			arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
-			arraied = dump(arraied);
-			(typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
-			$('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
-		})
+            $('#toHierarchy').click(function (e) {
+                hiered = $('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0});
+                hiered = dump(hiered);
+                (typeof ($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
+                        $('#toHierarchyOutput')[0].textContent = hiered : $('#toHierarchyOutput')[0].innerText = hiered;
+            })
 
-		$("#form").submit(function( event ) {
-			arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
-			arraied = dump(arraied);
-			$("<input type='hidden' name='ativo' value='"+$('ol.sortable').nestedSortable('serialize')+"'/>").appendTo('#form'); 
-		});	
-	});
+            $('#toArray').click(function (e) {
+                arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                arraied = dump(arraied);
+                (typeof ($('#toArrayOutput')[0].textContent) != 'undefined') ?
+                        $('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
+            })
 
-	function dump(arr,level) {
-		var dumped_text = "";
-		if(!level) level = 0;
+            $("#form").submit(function (event) {
+                arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                arraied = dump(arraied);
+                $("<input type='hidden' name='ativo' value='" + $('ol.sortable').nestedSortable('serialize') + "'/>").appendTo('#form');
+            });
+        });
 
-		//The padding given at the beginning of the line.
-		var level_padding = "";
-		for(var j=0;j<level+1;j++) level_padding += "    ";
+        function dump(arr, level) {
+            var dumped_text = "";
+            if (!level)
+                level = 0;
 
-		if(typeof(arr) == 'object') { //Array/Hashes/Objects
-			for(var item in arr) {
-				var value = arr[item];
+            //The padding given at the beginning of the line.
+            var level_padding = "";
+            for (var j = 0; j < level + 1; j++)
+                level_padding += "    ";
 
-				if(typeof(value) == 'object') { //If it is an array,
-					dumped_text += level_padding + "'" + item + "' ...\n";
-					dumped_text += dump(value,level+1);
-				} else {
-					dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
-				}
-			}
-		} else { //Strings/Chars/Numbers etc.
-			dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
-		}
-		return dumped_text;
-	}
+            if (typeof (arr) == 'object') { //Array/Hashes/Objects
+                for (var item in arr) {
+                    var value = arr[item];
 
-</script>
+                    if (typeof (value) == 'object') { //If it is an array,
+                        dumped_text += level_padding + "'" + item + "' ...\n";
+                        dumped_text += dump(value, level + 1);
+                    } else {
+                        dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+                    }
+                }
+            } else { //Strings/Chars/Numbers etc.
+                dumped_text = "===>" + arr + "<===(" + typeof (arr) + ")";
+            }
+            return dumped_text;
+        }
 
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://mjsarfatti.com/piwik/" : "http://mjsarfatti.com/piwik/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script>
-<noscript>
-	<p>
-		<img src="http://mjsarfatti.com/piwik/piwik.php?idsite=1"
-			style="border: 0" alt="" />
-	</p>
-</noscript>
-<style type="text/css">
-pre,code {
-	font-size: 12px;
-}
+    </script>
 
-pre {
-	width: 100%;
-	overflow: auto;
-}
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var pkBaseURL = (("https:" == document.location.protocol) ? "https://mjsarfatti.com/piwik/" : "http://mjsarfatti.com/piwik/");
+        document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+            piwikTracker.trackPageView();
+            piwikTracker.enableLinkTracking();
+        } catch (err) {
+        }
+    </script>
+    <noscript>
+    <p>
+        <img src="http://mjsarfatti.com/piwik/piwik.php?idsite=1"
+             style="border: 0" alt="" />
+    </p>
+    </noscript>
+    <style type="text/css">
+        pre,code {
+            font-size: 12px;
+        }
 
-small {
-	font-size: 90%;
-}
+        pre {
+            width: 100%;
+            overflow: auto;
+        }
 
-small code {
-	font-size: 11px;
-}
+        small {
+            font-size: 90%;
+        }
 
-.placeholder {
-	outline: 1px dashed #4183C4;
-	/*-webkit-border-radius: 3px;
-			-moz-border-radius: 3px;
-			border-radius: 3px;
-			margin: -1px;*/
-}
+        small code {
+            font-size: 11px;
+        }
 
-.mjs-nestedSortable-error {
-	background: #fbe3e4;
-	border-color: transparent;
-}
+        .placeholder {
+            outline: 1px dashed #4183C4;
+            /*-webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    border-radius: 3px;
+                    margin: -1px;*/
+        }
 
-ol {
-	margin: 0;
-	padding: 0;
-	padding-left: 30px;
-}
+        .mjs-nestedSortable-error {
+            background: #fbe3e4;
+            border-color: transparent;
+        }
 
-ol.sortable,ol.sortable ol {
-	margin: 0 0 0 25px;
-	padding: 0;
-	list-style-type: none;
-}
+        ol {
+            margin: 0;
+            padding: 0;
+            padding-left: 30px;
+        }
 
-ol.sortable {
-	margin: 4em 0;
-}
+        ol.sortable,ol.sortable ol {
+            margin: 0 0 0 25px;
+            padding: 0;
+            list-style-type: none;
+        }
 
-.sortable li {
-	margin: 5px 0 0 0;
-	padding: 0;
-}
+        ol.sortable {
+            margin: 4em 0;
+        }
 
-.sortable li div {
-	border: 1px solid #d4d4d4;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	border-color: #D4D4D4 #D4D4D4 #BCBCBC;
-	padding: 6px;
-	margin: 0;
-	cursor: move;
-	background: #f6f6f6;
-	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
-		color-stop(47%, #f6f6f6), color-stop(100%, #ededed) );
-	background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-	background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-	background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-	background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-	filter: progid : DXImageTransform.Microsoft.gradient (   startColorstr =
-		'#ffffff', endColorstr = '#ededed', GradientType = 0 );
-}
+        .sortable li {
+            margin: 5px 0 0 0;
+            padding: 0;
+        }
 
-.sortable li.mjs-nestedSortable-branch div {
-	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f0ece9 100%);
-	background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f0ece9 100%);
-}
+        .sortable li div {
+            border: 1px solid #d4d4d4;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+            padding: 6px;
+            margin: 0;
+            cursor: move;
+            background: #f6f6f6;
+            background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
+                color-stop(47%, #f6f6f6), color-stop(100%, #ededed) );
+            background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+            background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+            background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+            background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+            filter: progid : DXImageTransform.Microsoft.gradient (   startColorstr =
+                '#ffffff', endColorstr = '#ededed', GradientType = 0 );
+        }
 
-.sortable li.mjs-nestedSortable-leaf div {
-	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #bcccbc 100%);
-	background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #bcccbc 100%);
-}
+        .sortable li.mjs-nestedSortable-branch div {
+            background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f0ece9 100%);
+            background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f0ece9 100%);
+        }
 
-li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
-	border-color: #999;
-	background: #fafafa;
-}
+        .sortable li.mjs-nestedSortable-leaf div {
+            background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #bcccbc 100%);
+            background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #bcccbc 100%);
+        }
 
-.disclose {
-	cursor: pointer;
-	width: 10px;
-	display: none;
-}
+        li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
+            border-color: #999;
+            background: #fafafa;
+        }
 
-.sortable li.mjs-nestedSortable-collapsed>ol {
-	display: none;
-}
+        .disclose {
+            cursor: pointer;
+            width: 10px;
+            display: none;
+        }
 
-.sortable li.mjs-nestedSortable-branch>div>.disclose {
-	display: inline-block;
-}
+        .sortable li.mjs-nestedSortable-collapsed>ol {
+            display: none;
+        }
 
-.sortable li.mjs-nestedSortable-collapsed>div>.disclose>span:before {
-	content: '+ ';
-}
+        .sortable li.mjs-nestedSortable-branch>div>.disclose {
+            display: inline-block;
+        }
 
-.sortable li.mjs-nestedSortable-expanded>div>.disclose>span:before {
-	content: '- ';
-}
+        .sortable li.mjs-nestedSortable-collapsed>div>.disclose>span:before {
+            content: '+ ';
+        }
 
-p,ol,ul,pre,form {
-	margin-top: 0;
-	margin-bottom: 1em;
-}
+        .sortable li.mjs-nestedSortable-expanded>div>.disclose>span:before {
+            content: '- ';
+        }
 
-dl {
-	margin: 0;
-}
+        p,ol,ul,pre,form {
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
 
-dd {
-	margin: 0;
-	padding: 0 0 0 1.5em;
-}
+        dl {
+            margin: 0;
+        }
 
-code {
-	background: #e5e5e5;
-}
+        dd {
+            margin: 0;
+            padding: 0 0 0 1.5em;
+        }
 
-input {
-	vertical-align: text-bottom;
-}
+        code {
+            background: #e5e5e5;
+        }
 
-.notice {
-	color: #c33;
-}
-</style>
-<section id="demo">
-<ol class="sortable ui-sortable">
+        input {
+            vertical-align: text-bottom;
+        }
 
-<?php
+        .notice {
+            color: #c33;
+        }
+    </style>
+    <section id="demo">
+        <ol class="sortable ui-sortable">
 
-$listaPaginas = $webgdDao->getListFather();
+            <?php
+            $listaPaginas = $webgdDao->getListFather();
 
-foreach ($listaPaginas as $pagina){
-	if($listChilden = $webgdDao->findChildren($pagina->id)){
-		echo '<li id="list_'.$pagina->id.'" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed"><div><span class="disclose"><span></span></span>'.$pagina->nome.'</div>';
-		foreach ($listChilden as $childen){
-			echo '<ol>';
-			if($listChilden2 = $webgdDao->findChildren($childen->id)){
-				echo '<li id="list_'.$childen->id.'" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed"><div><span class="disclose"><span></span></span>'.$childen->nome.'</div>';
-				foreach ($listChilden2 as $childen2){
-					echo '<ol>';
-					echo '<li id="list_'.$childen2->id.'" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>'.$childen2->nome.'</div></li>';
-					echo '</ol>';
-				}
-			}else{
-				echo '<li id="list_'.$childen->id.'" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>'.$childen->nome.'</div></li>';
-			}
-			echo '</ol>';
-		}
-	}else{
-		echo '<li id="list_'.$pagina->id.'" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>'.$pagina->nome.'</div></li>';
-	}
-}
-?>
-</ol>
-<form action=" " id="form" method="post">
-	<input type="submit" value="Salvar">
-</form>
-</section>
-<?php
-	echo $OUTPUT->single_button($CFG->wwwroot.'/blocks/webgd/index.php', get_string('cancelar','block_webgd'));   
+            foreach ($listaPaginas as $pagina) {
+                if ($listChilden = $webgdDao->findChildren($pagina->id)) {
+                    echo '<li id="list_' . $pagina->id . '" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed"><div><span class="disclose"><span></span></span>' . $pagina->nome . '</div>';
+                    foreach ($listChilden as $childen) {
+                        echo '<ol>';
+                        if ($listChilden2 = $webgdDao->findChildren($childen->id)) {
+                            echo '<li id="list_' . $childen->id . '" class="mjs-nestedSortable-branch mjs-nestedSortable-collapsed"><div><span class="disclose"><span></span></span>' . $childen->nome . '</div>';
+                            foreach ($listChilden2 as $childen2) {
+                                echo '<ol>';
+                                echo '<li id="list_' . $childen2->id . '" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>' . $childen2->nome . '</div></li>';
+                                echo '</ol>';
+                            }
+                        } else {
+                            echo '<li id="list_' . $childen->id . '" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>' . $childen->nome . '</div></li>';
+                        }
+                        echo '</ol>';
+                    }
+                } else {
+                    echo '<li id="list_' . $pagina->id . '" class="mjs-nestedSortable-leaf"><div><span class="disclose"><span></span></span>' . $pagina->nome . '</div></li>';
+                }
+            }
+            ?>
+        </ol>
+        <form action=" " id="form" method="post">
+            <input type="submit" value="Salvar">
+        </form>
+    </section>
+    <?php
+    echo $OUTPUT->single_button($CFG->wwwroot . '/blocks/webgd/index.php', get_string('cancelar', 'block_webgd'));
 }
 echo $OUTPUT->footer();
 ?>
