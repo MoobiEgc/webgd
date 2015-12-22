@@ -370,7 +370,7 @@ if (isset($_POST['ativo'])) {
             ?>
         </ol>
         <form action=" " id="form" method="post">
-            <input type="submit" value="Salvar">
+            <input type="submit" value="<?php echo get_string('salvar','block_webgd');?>">
         </form>
     </section>
     <?php

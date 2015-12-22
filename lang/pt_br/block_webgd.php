@@ -45,6 +45,7 @@ $string['cabecalhoGerenciamento'] = 'Gerenciamento de página';
 $string['cadastrar'] = 'Cadastrar';
 $string['gerenciarOrdem'] = 'Gerenciar Ordem';
 $string['cancelar'] = 'Cancelar';
+$string['salvar'] = 'Salvar';
 /*
  * LABEL FORM
  */
