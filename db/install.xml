@@ -1,41 +1,41 @@
 <XMLDB PATH="blocks/chatwebgd" VERSION="20151127" COMMENT="XMLDB file for Moodle blocks/chatwebgd"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd">
-	<TABLES>
-		<TABLE NAME="block_webgd_pagina" COMMENT="">
-			<FIELDS>
-				<FIELD NAME="id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="true" />
-				<FIELD NAME="nome" TYPE="text" LENGTH="60" NOTNULL="true" SEQUENCE="false" />
-				<FIELD NAME="titulo" TYPE="text" LENGTH="60" NOTNULL="true" SEQUENCE="false" />
-				<FIELD NAME="conteudo" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" />
-				<FIELD NAME="habilitado" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
-				<FIELD NAME="visivel" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
-				<FIELD NAME="icone" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false"/>
-				<FIELD NAME="link" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
-				<FIELD NAME="link_url" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false" DEFAULT="0" />
-				<FIELD NAME="url_icon" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false" DEFAULT="0" />
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd">
+    <TABLES>
+        <TABLE NAME="block_webgd_pagina" COMMENT="">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="nome" TYPE="text" LENGTH="60" NOTNULL="true" SEQUENCE="false" />
+                <FIELD NAME="titulo" TYPE="text" LENGTH="60" NOTNULL="true" SEQUENCE="false" />
+                <FIELD NAME="conteudo" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" />
+                <FIELD NAME="habilitado" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
+                <FIELD NAME="visivel" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
+                <FIELD NAME="icone" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="link" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0" COMMENT="valores possiveis: 0 ou 1 (enums nao sao suportados)"/>
+                <FIELD NAME="link_url" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false" DEFAULT="0" />
+                <FIELD NAME="url_icon" TYPE="text" LENGTH="300" NOTNULL="false" SEQUENCE="false" DEFAULT="0" />
 
-			</FIELDS>
-			<KEYS>
-				<KEY NAME="primary" TYPE="primary" FIELDS="id" />
-			</KEYS>
-		</TABLE>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+            </KEYS>
+        </TABLE>
 			
-		<TABLE NAME="block_webgd_pagina_order" COMMENT=""> 
-			<FIELDS>
-				<FIELD NAME="id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="true" />
-				<FIELD NAME="page" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" />
-				<FIELD NAME="parent" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" />			
-				<FIELD NAME="order" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>	
-			</FIELDS>
-			<KEYS>
-				<KEY NAME="primary" TYPE="primary" FIELDS="id" />					
-				<KEY NAME="parent" TYPE="foreign" FIELDS="parent" REFTABLE="block_webgd_pagina" REFFIELDS="id"/>
-				<KEY NAME="FK_mdl_block_webgd_pagina_order_mdl_block_webgd_pagina" TYPE="foreign" FIELDS="page" REFTABLE="block_webgd_pagina" REFFIELDS="id"/> 
-			</KEYS>
-		</TABLE>
+        <TABLE NAME="block_webgd_pagina_order" COMMENT=""> 
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="true" />
+                <FIELD NAME="page" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" />
+                <FIELD NAME="parent" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" />			
+                <FIELD NAME="order" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>	
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />					
+                <KEY NAME="parent" TYPE="foreign" FIELDS="parent" REFTABLE="block_webgd_pagina" REFFIELDS="id"/>
+                <KEY NAME="FK_mdl_block_webgd_pagina_order_mdl_block_webgd_pagina" TYPE="foreign" FIELDS="page" REFTABLE="block_webgd_pagina" REFFIELDS="id"/> 
+            </KEYS>
+        </TABLE>
 
 
 	
-	</TABLES>
+    </TABLES>
 </XMLDB>
