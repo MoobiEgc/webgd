@@ -195,9 +195,11 @@ class block_webgd extends block_list {
         if ($nome == 'Publicações') {
             $videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/publicações.mp4';
         }
+        $id='';
+        $cursosTagId='';
         if ($nome == 'Cursos') {
-            $videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/projecao.mp4';
-            $target = "_blank";
+            $id = "cursos";
+            $cursosTagId= "id='$id'";
         }
         return "<div class='linha_webgd'>
 
@@ -207,10 +209,10 @@ class block_webgd extends block_list {
                           <a title='" . $nome . "' href='" . $url . "' target='" . $target . "'>$nome</a>
                       </span>
                     </div>
-
+                    
                     <div class='row' style='float:right; position: relative; margin-left:0;'>
                         <div class='col-lg-12'>
-                            <a class='hand' href='" . $videoLibras . "'><img src='" . $imgLibras . "'></img></a>
+                            <a $cursosTagId class='hand' href='" . $videoLibras . "'><img src='" . $imgLibras . "'></img></a>
                         </div>
 
                         <div class='col-lg-12'>
@@ -218,7 +220,10 @@ class block_webgd extends block_list {
                         </div>
 
                     </div>
-
+                    <script>
+                    
+                    $('#$id').remove();
+                    </script>
                 </div>";
     }
 
