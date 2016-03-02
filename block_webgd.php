@@ -183,7 +183,7 @@ class block_webgd extends block_list {
         if (empty($urlIcon)) {
             $urlIcon = $CFG->wwwroot . '/theme/moobi/pix/icons/aumentar.png';
         }
-        if ($nome == 'Inicio') {
+        if ($nome == 'Início') {
             $videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/boasvindas.mp4';
         }
         if ($nome == 'Equipe') {
