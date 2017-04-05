@@ -95,16 +95,6 @@ $page = $webgdDao->findPageById($idPage);
 if($page && ($page->habilitado != "false")){
 	$PAGE->set_cacheable(false);
 
-	if($idPage == 13) {
-
-	echo $OUTPUT->heading('Seja bem-vindo ao Moobi!', 2 ,'titulo_pagina');
-
-	$videoLibras = '#';
-	$videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/retas.mp4';
-	$imgLibras = $CFG->wwwroot . '/theme/moobi/pix/icons/mao-libras.png';
-
-	echo "<div><a class='hand' id='mainHand' href='" . $videoLibras . "'><img src='" . $imgLibras . "'></img></a></div>";
-
     if ($idPage == 13) {
 
         echo $OUTPUT->heading('Seja bem-vindo ao Moobi!', 2, 'titulo_pagina');
