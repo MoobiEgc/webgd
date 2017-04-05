@@ -97,7 +97,7 @@ if($page && ($page->habilitado != "false")){
 
 	if($idPage == 13) {
 
-	echo $OUTPUT->heading('Seja bem-vindo ao WebGD!', 2 ,'titulo_pagina');
+	echo $OUTPUT->heading('Seja bem-vindo ao Moobi!', 2 ,'titulo_pagina');
 
 	$videoLibras = '#';
 	$videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/retas.mp4';
@@ -107,7 +107,7 @@ if($page && ($page->habilitado != "false")){
 
     if ($idPage == 13) {
 
-        echo $OUTPUT->heading('Seja bem-vindo ao WebGD!', 2, 'titulo_pagina');
+        echo $OUTPUT->heading('Seja bem-vindo ao Moobi!', 2, 'titulo_pagina');
 
         $videoLibras = '#';
         $videoLibras = $CFG->wwwroot . '/blocks/webgd/videos/retas.mp4';
@@ -123,7 +123,7 @@ if($page && ($page->habilitado != "false")){
     Aqui, você encontrará cursos na área de Geometria, além da possibilidade de criar comunidades de prática.
     O ambiente oferece um conjunto de ferramentas para interação, colaboração e comunicação para auxiliar atividades de discussão, criação de sinais, votação, construção de ícones e gravação de vídeos.
     Clique em Entrar na área superior direita do site.
-    Para utilizar o WebGD é necessário criar uma conta e ter de preferência um e-mail do Gmail.
+    Para utilizar o Moobi é necessário criar uma conta e ter de preferência um e-mail do Gmail.
     </p>
     </div>
 

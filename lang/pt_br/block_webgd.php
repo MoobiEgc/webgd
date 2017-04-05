@@ -23,13 +23,13 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['webgd:addinstance'] = 'Add a new people block';
-$string['webgd:administracao'] = 'Permissão para administrar bloco WEBGD';
+$string['webgd:administracao'] = 'Permissão para administrar bloco Moobi';
 $string['webgd:cadastrarPagina'] = 'Permissão para cadastrar uma pagina';
 $string['webgd:editarPagina'] = 'Permissão para editar uma pagina';
 $string['webgd:deletarPagina'] = 'Permissão para deletar uma pagina';
 $string['webgd:gerenciarOrdem'] = 'Permissão para acessar o gerenciamento de ordem dos menus';
 
-$string['pluginname'] = 'Navegação WebGD';
+$string['pluginname'] = 'Navegação Moobi';
 $string['administracao'] = 'Administração';
 
 /*
